@@ -1,6 +1,7 @@
 import os
 import random
 import re
+from dice_roller import roll_dice
 from discord.ext import commands
 
 
@@ -15,30 +16,7 @@ async def on_ready():
 @client.event
 async def on_message(message):
     if message.content.startswith("/r"):
-        channel = message.channel
-        reply = f"{message.author.mention} "
-
-        roll_print_out = []
-        for dice_roll in message.content.replace("/r", "").split("+"):
-            dice_roll_info = dice_roll.strip().split("d")
-            if dice_roll_info[0] == "":
-                dice_roll_info[0] = 1
-            dice_roll_info = [int(dice_roll_info[0]), int(dice_roll_info[1])]
-
-            rolls = []
-            total = 0
-            for i in range(dice_roll_info[0]):
-                roll = random.randint(1, dice_roll_info[1])
-                rolls.append(str(roll))
-                total += roll
-
-            roll_print_out.append((total, f"({' + '.join(rolls)})"))
-
-        totals, individual_rolls = zip(*roll_print_out)
-
-        reply += f"`{' + '.join(individual_rolls)} = {sum(totals)}`"
-
-        await channel.send(reply)
+        await roll_dice(message)
 
     elif message.content.startswith("/flip"):
         channel = message.channel
