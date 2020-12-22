@@ -18,4 +18,4 @@ def calculate(expression: str) -> Union[float, int]:
         left, operator, right = expression.partition(operator_symbol)
 
         if operator in operators:
-            return operators[operator](calculate(left), calculate(right))
+            return operators[operator](calculate(left.strip()), calculate(right.strip()))

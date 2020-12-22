@@ -1,6 +1,8 @@
 import os
 import random
 import re
+
+from calculator import calculate
 from dice_roller import roll_dice
 from discord.ext import commands
 
@@ -17,6 +19,12 @@ async def on_ready():
 async def on_message(message):
     if message.content.startswith("/r"):
         await roll_dice(message)
+
+    elif message.content.startswith("/c"):
+        channel = message.channel
+        reply = f"{message.author.mention} "
+        reply += str(calculate(message.content.replace("/c", "")))
+        await channel.send(reply)
 
     elif message.content.startswith("/flip"):
         channel = message.channel
