@@ -12,16 +12,23 @@ operators = {
 }
 
 
-def calculate(expression: str) -> Union[float, int]:
+def calculate(expression: str) -> Union[float, int, str]:
 
-    if "(" in expression and ")" in expression:
-        for _ in range(expression.count("(") - 1):
-            x = re.findall(r"\([0-9-*\/^+. ]+\)", expression)
-            for bracketed_expression in x:
-                expression = expression.replace(bracketed_expression, str(calculate(bracketed_expression[1:-1])), 1)
+    while "(" in expression or ")" in expression:
+        if expression.count(")") != expression.count("("):
+            return "Uneven brackets"
+
+        bracketed_expressions = re.findall(r"\([0-9-*\/^+. ]+\)", expression)
+        for bracketed_expression in bracketed_expressions:
+            expression = expression.replace(bracketed_expression, str(calculate(bracketed_expression[1:-1])), 1)
 
     if expression.replace(".", "", 1).strip().isdigit():
-        return float(expression)
+        if expression[-2:] == ".0":
+            return int(expression[:-2])
+        elif "." not in expression:
+            return int(expression)
+        else:
+            return float(expression)
 
     for operator_symbol in operators:
         left, operator, right = expression.partition(operator_symbol)
