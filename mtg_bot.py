@@ -22,7 +22,7 @@ async def on_message(message):
 
     elif message.content.startswith("/c"):
         channel = message.channel
-        reply = f"{message.author.mention} "
+        reply = f"{message.author.mention} `{message.content.replace(' ', '').replace('/c', '').strip()}` = "
         reply += str(calculate(message.content.replace("/c", "")))
         await channel.send(reply)
 

@@ -24,14 +24,14 @@ async def roll_dice(message: Message):
     return await channel.send(reply)
 
 
-def format_kh1_kl1(return_dict: dict, numbers: list) -> dict:
+def format_kh1_kl1(return_dict: dict, numbers: list, display_number: int) -> dict:
     return_dict["content"] = "("
     found = False
     for num in numbers:
-        if str(num) != return_dict["expression"] and not found:
-            found = True
-            return_dict["content"] += f'~~{num}~~ ,'
+        if num != display_number or found:
+            return_dict["content"] += f'~~{num}~~, '
         else:
+            found = True
             return_dict["content"] += f"{num}, "
 
     return_dict["content"] = return_dict["content"][:-2] + ")"
@@ -52,19 +52,21 @@ def parse_rolls(dice_info: tuple) -> dict:
         numbers.append(random.randint(1, int(die_type)))
 
     if dice_info[2]:
-        return_dict["expression"] = str(max(numbers))
-        return_dict = format_kh1_kl1(return_dict, numbers)
+        max_number = max(numbers)
+        return_dict["expression"] = "(" + str(max_number) + ")"
+        return_dict = format_kh1_kl1(return_dict, numbers, max_number)
 
     elif dice_info[3]:
-        return_dict["expression"] = str(min(numbers))
-        return_dict = format_kh1_kl1(return_dict, numbers)
+        min_number = min(numbers)
+        return_dict["expression"] = "(" + str(min_number) + ")"
+        return_dict = format_kh1_kl1(return_dict, numbers, min_number)
 
     else:
         return_dict["expression"] = ""
         for num in numbers:
             return_dict["expression"] += f"{num} + "
 
-        return_dict["expression"] = return_dict["expression"][:-3]
-        return_dict["content"] = f"({return_dict['expression']})"
+        return_dict["expression"] = "(" + return_dict["expression"][:-3] + ")"
+        return_dict["content"] = return_dict['expression']
 
     return return_dict
