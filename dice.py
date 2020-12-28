@@ -7,7 +7,7 @@ from calculator import calculate
 
 async def roll_dice(message: Message):
     channel = message.channel
-    content = message.content.replace("/r", "")
+    content = message.content.replace("/roll", "").replace("/r", "")
     expression = content
     reply = f"{message.author.mention} `{content.replace(' ', '')}` = "
 

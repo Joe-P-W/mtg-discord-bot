@@ -16,7 +16,7 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
-    if message.content.startswith("/r"):
+    if message.content.startswith("/r") or message.content.startswith("/roll"):
         await roll_dice(message)
 
     elif message.content.startswith("/c"):

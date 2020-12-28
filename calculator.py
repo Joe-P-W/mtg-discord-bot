@@ -13,7 +13,6 @@ operators = {
 
 
 def calculate(expression: str) -> Union[float, int, str]:
-
     while "(" in expression or ")" in expression:
         if expression.count(")") != expression.count("("):
             return "Uneven brackets"
@@ -34,4 +33,7 @@ def calculate(expression: str) -> Union[float, int, str]:
         left, operator, right = expression.partition(operator_symbol)
 
         if operator in operators:
-            return operators[operator](calculate(left.strip()), calculate(right.strip()))
+            try:
+                return operators[operator](calculate(left.strip()), calculate(right.strip()))
+            except ZeroDivisionError:
+                return "Tried to divide by 0"
