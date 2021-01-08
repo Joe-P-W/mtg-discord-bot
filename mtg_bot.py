@@ -1,3 +1,4 @@
+import asyncio
 import os
 
 from calculator import calculate
@@ -20,9 +21,10 @@ async def on_message(message):
         await roll_dice(message)
 
     elif message.content.startswith("/c"):
+        loop = asyncio.get_event_loop()
         channel = message.channel
         reply = f"{message.author.mention} `{message.content.replace(' ', '').replace('/c', '').strip()}` = "
-        reply += str(calculate(message.content.replace("/c", "")))
+        reply += str(await loop.create_task(calculate(message.content.replace("/c", ""))))
         await channel.send(reply)
 
     elif message.content.startswith("/flip"):
