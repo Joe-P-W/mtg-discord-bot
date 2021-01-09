@@ -1,4 +1,3 @@
-import asyncio
 import re
 from typing import Union
 from operator import pow, truediv, mul, add, sub

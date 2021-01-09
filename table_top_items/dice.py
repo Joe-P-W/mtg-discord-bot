@@ -2,7 +2,7 @@ import re
 import random
 
 from discord.message import Message
-from calculator import calculate
+from table_top_items.calculator import calculate
 
 
 async def roll_dice(message: Message):
