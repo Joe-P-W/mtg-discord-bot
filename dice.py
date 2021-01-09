@@ -19,7 +19,7 @@ async def roll_dice(message: Message):
         expression = expression.replace(typed_die, roll_info["expression"], 1).strip()
         content = content.replace(typed_die, roll_info["content"], 1).strip()
 
-    reply += f"{content} = {int(calculate(expression))}"
+    reply += f"{content} = {int(await calculate(expression))}"
 
     return await channel.send(reply)
 
