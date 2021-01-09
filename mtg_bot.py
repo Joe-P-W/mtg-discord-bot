@@ -1,7 +1,7 @@
 import os
 import io
 import discord
-
+import asyncio
 from requests_handler.scryfall import get_card
 from table_top_items.calculator import calculate
 from table_top_items.coin import flip_coin
@@ -33,10 +33,16 @@ async def on_message(message):
 
     elif message.content.startswith("/s") or message.content.startswith("/search"):
         channel = message.channel
+        card_names = message.content.replace("/search", "").replace("/s", "").strip()
         reply = f"{message.author.mention}\n"
-        card_name = message.content.replace("/search", "").replace("/s", "").strip()
-        card_info, card_image = await get_card(card_name)
-        await channel.send(reply, file=discord.File(io.BytesIO(card_image), f"{card_name.replace(' ', '_')}.png"))
+
+        for card_name in card_names.split("+"):
+            card_info, card_image = await get_card(card_name)
+            await channel.send(
+                reply,
+                file=discord.File(io.BytesIO(card_image), f"{card_info.get('name', 'default').replace(' ', '_')}.png")
+            )
+            await asyncio.sleep(0.05)
 
     elif message.content.startswith("/help") or message.content.startswith("/h"):
         channel = message.channel

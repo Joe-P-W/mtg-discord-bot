@@ -21,7 +21,7 @@ async def roll_dice(message: Message):
 
     reply += f"{content} = {int(await calculate(expression))}"
 
-    return await channel.send(reply)
+    await channel.send(reply)
 
 
 def format_kh1_kl1(return_dict: dict, numbers: list, display_number: int) -> dict:
