@@ -2,22 +2,17 @@ import os
 import io
 import discord
 import asyncio
-from requests_handler.scryfall import get_card
-from table_top_items.calculator import calculate
-from table_top_items.coin import flip_coin
-from table_top_items.dice import roll_dice
+from mtg_discord_bot.requests_handler.scryfall import get_card
+from mtg_discord_bot.table_top_items.calculator import calculate
+from mtg_discord_bot.table_top_items.coin import flip_coin
+from mtg_discord_bot.table_top_items.dice import roll_dice
 from discord.ext import commands
 
 
-client = commands.Bot(command_prefix="/")
-
-
-@client.event
 async def on_ready():
     print("Bot initialised")
 
 
-@client.event
 async def on_message(message):
     if message.content.startswith("/r") or message.content.startswith("/roll"):
         await roll_dice(message)
@@ -40,7 +35,8 @@ async def on_message(message):
             card_info, card_image = await get_card(card_name)
             await channel.send(
                 reply,
-                file=discord.File(io.BytesIO(card_image), f"{card_info.get('name', 'default').replace(' ', '_')}.png")
+                file=discord.File(io.BytesIO(card_image),
+                                  f"{card_info.get('name', 'default').replace(' ', '_')}.png")
             )
             await asyncio.sleep(0.05)
 
@@ -51,4 +47,10 @@ async def on_message(message):
         await channel.send(reply)
 
 
-client.run(os.getenv("mtg_bot_token"))
+if __name__ == "__main__":
+    bot = commands.Bot(command_prefix="/")
+
+    on_read = bot.event(on_ready)
+    on_message = bot.event(on_message)
+
+    bot.run(os.getenv("mtg_bot_token"))

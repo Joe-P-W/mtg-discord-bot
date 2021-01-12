@@ -2,7 +2,8 @@
 A bot to aid the playing of Magic the Gathering over Discord
 
 ## Invite MTG Bot to your discord server:
-https://discord.com/api/oauth2/authorize?client_id=698834698381819915&permissions=522304&scope=bot
+This bot has been merged into another bot if you want to invite MTG Bot to you discord go to:
+https://github.com/Joe-P-W/game-discord-bot
 
 ## Searching the Scryfall Database:
 To search the database of cards simply put "/s" followed by the card name you want to search.  
