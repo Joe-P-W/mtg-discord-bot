@@ -48,9 +48,9 @@ async def on_message(message):
 
 
 if __name__ == "__main__":
-    client = commands.Bot(command_prefix="/")
+    bot = commands.Bot(command_prefix="/")
 
-    on_read = client.event(on_ready)
-    on_message = client.event(on_message)
+    on_read = bot.event(on_ready)
+    on_message = bot.event(on_message)
 
-    client.run(os.getenv("mtg_test_bot_token"))
+    bot.run(os.getenv("mtg_bot_token"))
