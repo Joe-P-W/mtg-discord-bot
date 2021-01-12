@@ -1,7 +1,7 @@
 import asyncio
 
 from typing import Tuple
-from requests_handler.async_requests import async_get
+from mtg_discord_bot.requests_handler.async_requests import async_get
 
 
 SCRYFALL = "https://api.scryfall.com"

@@ -2,10 +2,10 @@ import os
 import io
 import discord
 import asyncio
-from requests_handler.scryfall import get_card
-from table_top_items.calculator import calculate
-from table_top_items.coin import flip_coin
-from table_top_items.dice import roll_dice
+from mtg_discord_bot.requests_handler.scryfall import get_card
+from mtg_discord_bot.table_top_items.calculator import calculate
+from mtg_discord_bot.table_top_items.coin import flip_coin
+from mtg_discord_bot.table_top_items.dice import roll_dice
 from discord.ext import commands
 
 
