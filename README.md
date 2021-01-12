@@ -1,2 +1,3 @@
 # mtg-discord-bot
-A bot to aid the playing of Magic the Gathering over Discord
+This bot has been merged into another bot if you want to invite MTG Bot to you discord go to:
+https://github.com/Joe-P-W/game-discord-bot
